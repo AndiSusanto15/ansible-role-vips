@@ -1,0 +1,57 @@
+- name: Install dependencies
+  apt:
+    name:
+      - automake
+      - libtool
+      - swig
+      - libxml2-dev
+      - libfftw3-dev
+      - libmagickwand-dev
+      - libopenexr-dev
+      - liborc-0.4-0
+      - gobject-introspection
+      - libgsf-1-dev
+      - libglib2.0-dev
+      - liborc-0.4-dev
+      - gtk-doc-tools
+      - libopenslide-dev
+      - libmatio-dev
+      - libgif-dev
+      - libwebp-dev
+      - libjpeg-turbo8-dev
+      - libexpat1-dev
+    state: present
+    update_cache: yes
+
+- name: Clone repo libvips
+  shell: git clone git://github.com/libvips/libvips.git /tmp/libvips
+
+- name: Run autogen.sh
+  shell: bash autogen.sh
+  args:
+    chdir: /tmp/libvips
+
+- name: Run make
+  shell: make
+  args:
+    chdir: /tmp/libvips
+
+- name: Run make install
+  shell: make install
+  args:
+    chdir: /tmp/libvips
+
+- name: Setup environment vips
+  blockinfile:
+    path: /tmp/test1
+    block: |
+      export VIPSHOME=/usr/local
+      export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$VIPSHOME/lib
+      export PATH=$PATH:$VIPSHOME/bin
+      export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$VIPSHOME/lib/pkgconfig
+      export MANPATH=$MANPATH:$VIPSHOME/man
+
+- name: Remove installer
+  file:
+    path: /tmp/libvips
+    state: absent
