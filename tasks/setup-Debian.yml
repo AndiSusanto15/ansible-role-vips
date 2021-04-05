@@ -43,7 +43,7 @@
 
 - name: Setup environment vips
   blockinfile:
-    path: /tmp/test1
+    path: /etc/profile
     block: |
       export VIPSHOME=/usr/local
       export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$VIPSHOME/lib
