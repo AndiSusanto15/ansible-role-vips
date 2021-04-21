@@ -1,0 +1,14 @@
+- name: Install repo remi
+  yum:
+    name: http://rpms.remirepo.net/enterprise/remi-release-7.rpm
+    state: present
+
+- name: Enable remi repo
+  shell: yum-config-manager --enable remi
+
+- name: Install vips
+  yum:
+    name:
+      - vips
+      - vips-devel
+      - vips-tools
