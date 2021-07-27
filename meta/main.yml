@@ -1,6 +1,7 @@
 galaxy_info:
-  author: Batutah.id
-  description: Ansible roles for install vips from sources with latest version
+  role_name: vips
+  author: Andi Susanto
+  description: Ansible roles to install vips for ubuntu and CentOS
   company:
 
   # If the issue tracker for your role is not on github, uncomment the
